@@ -3,7 +3,13 @@ import pandas as pandas_package
 # 1. Read data from csv file using pandas.read_csv() function
 data_frame_object_from_csv = pandas_package.read_csv("../Datasets/employees_full_data.csv") # Assume that headers in csv file are at first row.
 
-# 2. Read data from python dictionary using pandas.DataFrame() function
+# 2. Read data from excel file using pandas.read_excel() function.
+# Since excel file will have multiple sheets, sheet name should be passed as second parameter.
+# While reading excel files, make sure to install module - openpyxl installed. Otherwise it throws error.
+data_frame_object_from_excel_sheet_1 = pandas_package.read_excel("../Datasets/stock_market_index_2_sheets.xlsx", "dow_jones") # Assume that headers in excel file are at first row.
+data_frame_object_from_excel_sheet_2 = pandas_package.read_excel("../Datasets/stock_market_index_2_sheets.xlsx", "nasdaq") # Assume that headers in excel file are at first row.
+
+# 3. Read data from python dictionary using pandas.DataFrame() function
 # Assume that keys are headers and values are rows in python dict.
 employees_data_dict = {
     "Name": ["Emp-1", "Emp-2", "Emp-3", "Emp-4", "Emp-5"],
@@ -13,3 +19,23 @@ employees_data_dict = {
     "Skill": ["Angular", "Python", "Java", "C#", "C++"]
 }
 data_frame_object_from_python_dict = pandas_package.DataFrame(employees_data_dict)
+
+# 4. Read data from python list of tuples using pandas.DataFrame() function
+# Column headers needs to be passed as second parameter and rows to be passed as list of tuples.
+employees_data_list_of_tuples = [
+    ("Emp-1", "1/1/2023", "Bangalore", "Developer", "Angular"),
+    ("Emp-2", "1/2/2023", "Chennai", "QA", "Python"),
+    ("Emp-3", "1/3/2023", "Hyderabad", "Lead", "Java"),
+    ("Emp-4", "1/4/2023", "Mumbai", "Architect", "C#"),
+    ("Emp-5", "1/5/2023", "Noida", "Manager", "C++")
+]
+data_frame_object_from_python_list_of_tuples = pandas_package.DataFrame(employees_data_list_of_tuples, columns=["Name", "Date", "Location", "Role", "Skill"])
+
+# 5. Read data from python list of dictionaries using pandas.DataFrame() function
+# Note that key across all dictionary objects are same and they become headers and values of keys will become cells of rows.
+employees_data_list_of_dicts = [
+    {"name": "Emp-1", "date": "1/1/2023", "role": "Developer"},
+    {"name": "Emp-2", "date": "1/2/2023", "role": "QA"},
+    {"name": "Emp-3", "date": "1/3/2023", "role": "Lead"}
+]
+data_frame_object_from_python_list_of_dicts = pandas_package.DataFrame(employees_data_list_of_dicts)
