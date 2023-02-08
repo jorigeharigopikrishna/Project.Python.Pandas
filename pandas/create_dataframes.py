@@ -10,6 +10,8 @@ data_frame_object_from_csv_replace_na_values = pandas_package.read_csv("../Datas
    "age": [-1],
    "role": ["not available"]
 })   # Replace the values of Unknown in name column, -1 in age column, not available in role column with NaN in those respective column in dataframe.
+data_frame_object_from_csv_parse_dates_columns_from_str_to_datetime = pandas_package.read_csv("../Datasets/employees_full_data.csv", parse_dates=["Join date"])     # Converts datatype of Join date column values to timestamp datatype.
+data_frame_object_from_csv_date_index = pandas_package.read_csv("../Datasets/employees_full_data.csv", index_col="Join date")     # Sets Join date as index of dataframe.
 
 # 2. Read data from excel file using pandas.read_excel() function.
 # Since excel file will have multiple sheets, sheet name should be passed as second parameter.
