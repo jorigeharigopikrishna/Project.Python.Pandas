@@ -2,6 +2,14 @@ import pandas as pandas_package
 
 # 1. Read data from csv file using pandas.read_csv() function
 data_frame_object_from_csv = pandas_package.read_csv("../Datasets/employees_full_data.csv") # Assume that headers in csv file are at first row.
+data_frame_object_from_csv_skiprows_2 = pandas_package.read_csv("../Datasets/employees_full_data_headers_2.csv", skiprows=1) # Assume that headers in csv file are at second row.
+data_frame_object_from_csv_headers_2 = pandas_package.read_csv("../Datasets/employees_full_data_headers_2.csv", header=1) # Assume that headers in csv file are at second row.
+data_frame_object_from_csv_rows_4 = pandas_package.read_csv("../Datasets/employees_full_data.csv", nrows=4) # Return top 4 rows.
+data_frame_object_from_csv_replace_na_values = pandas_package.read_csv("../Datasets/employees_missing_data.csv", na_values={
+   "name": ["Unknown"],
+   "age": [-1],
+   "role": ["not available"]
+})   # Replace the values of Unknown in name column, -1 in age column, not available in role column with NaN in those respective column in dataframe.
 
 # 2. Read data from excel file using pandas.read_excel() function.
 # Since excel file will have multiple sheets, sheet name should be passed as second parameter.
