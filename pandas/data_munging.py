@@ -1,7 +1,15 @@
 import pandas as pandas_package
+import numpy as numpy_package
 
-data_frame_object_from_csv = pandas_package.read_csv("../Datasets/employees_missing_data.csv", parse_dates=["Join date"], index_col="Join date", nrows=10)
+data_frame_object_from_csv = pandas_package.read_csv("../Datasets/employees_missing_data.csv", parse_dates=["Join date"], index_col="Join date", nrows=10)  # Get top 10 rows
 print(data_frame_object_from_csv)
+data_frame_object_from_csv_invalid_data = pandas_package.read_csv("../Datasets/employees_invalid_data.csv", parse_dates=["Join date"], index_col="Join date", nrows=10)    # Get top 10 rows
+print(data_frame_object_from_csv_invalid_data)
+dataframe_dict = pandas_package.DataFrame({
+    "score": ["good", "avg", "excellent"],
+    "student": ["Ab", "Bc", "Cd"]
+})
+print(dataframe_dict)
 
 # 1. Using na_values parameter of pandas.read_csv() function
 data_frame_object_from_csv_replace_na_values = pandas_package.read_csv("../Datasets/employees_missing_data.csv", na_values={
@@ -11,6 +19,7 @@ data_frame_object_from_csv_replace_na_values = pandas_package.read_csv("../Datas
 })   # Replace the values of Unknown in name column, -1 in age column, not available in role column with NaN in those respective column in dataframe.
 
 # 2. Using fillna() method of dataframe_object
+# It deals with only NaN values
 df_obj_replace_all_nan_with_1 = data_frame_object_from_csv.fillna(-1)   # Replace all cells NaN values with -1
 df_obj_replace_nan_based_on_column = data_frame_object_from_csv.fillna({
    "Name": "Not present",     # Name column NaN value replaced with Not present
@@ -45,3 +54,23 @@ end_date = data_frame_object_from_csv.index[-1]    # Get last index at -1
 date_range = pandas_package.date_range(start_date, end_date)   # Create dates range object
 updated_index = pandas_package.DatetimeIndex(date_range)       # Convert dates range object to date time index
 data_frame_object_with_missing_rows_added = data_frame_object_from_csv.reindex(updated_index)   # reindex() method will rearrange index of dataframe and returns new dataframe.
+
+# 6. Using replace() method of dataframe_object
+# It does not deal with NaN values. It deals with non-NaN values.
+df_obj_replace_all_1_with_nan_value = data_frame_object_from_csv_invalid_data.replace(-1, numpy_package.NaN)   # Replace all cells non-NaN values of -1 with NaN
+df_obj_replace_more_than_non_nan_with_nan_value = data_frame_object_from_csv_invalid_data.replace(["No name", -1, "Unknown"], numpy_package.NaN)   # Replace all cells non-NaN values of No name, -1, Unknown with NaN
+df_obj_replace_more_than_non_nan_with_its_own_value = data_frame_object_from_csv_invalid_data.replace({
+    "No name": numpy_package.NaN,     # No name value replaced with NaN
+    -1: 0               # -1 value replaced with 0
+ })    # Replace No name with NaN and -1  with 0 across all cells.
+df_obj_replace_non_nan_based_on_column_with_nan_value = data_frame_object_from_csv_invalid_data.replace({
+    "Name": "No name",     # Name column No name value replaced with NaN
+    "Role": "Unknown",         # Role column Unknown value replaced with NaN
+    "Salary": -1               # Salary column -1 value replaced with NaN
+}, numpy_package.NaN)    # Replace column cells non-NaN values with specific value based on column.
+df_obj_replace_all_regex_match_with_empty_str = data_frame_object_from_csv_invalid_data.replace("a-zA-Z0-9", "", regex=True)   # Replace all cells values which match given regex pattern with ""
+df_obj_replace_all_regex_match_based_on_column_with_empty_str = data_frame_object_from_csv_invalid_data.replace({
+    "Name": "a-zA-Z0-9",     # Name column value match given regex pattern replaced with ""
+    "Role": "a-zA-Z0-9",         # Role column value match given regex pattern replaced with ""
+}, "", regex=True)    # Replace column cells non-NaN values which matches given regex pattern with "" based on column.
+dataframe_dict_replace = dataframe_dict.replace(["good", "avg", "excellent"], [1, 2, 3])    # Replace list with another list
