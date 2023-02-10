@@ -29,6 +29,7 @@ employees_data_dict = {
     "Skill": ["Angular", "Python", "Java", "C#", "C++"]
 }
 data_frame_object_from_python_dict = pandas_package.DataFrame(employees_data_dict)
+data_frame_object_from_python_dict_with_index = pandas_package.DataFrame(employees_data_dict, index=[1, 0, 2, 3, 4])    # Use of index array parameter to set the indices of rows explicitly.
 
 # 4. Read data from python list of tuples using pandas.DataFrame() function
 # Column headers needs to be passed as second parameter and rows to be passed as list of tuples.

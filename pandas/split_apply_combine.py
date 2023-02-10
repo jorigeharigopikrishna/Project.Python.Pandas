@@ -1,6 +1,6 @@
 import pandas as pandas_package
 
-df_object = pandas_package.read_csv("../Datasets/weather_data.csv", parse_dates=["Date"])
+df_object = pandas_package.read_csv("../Datasets/weather_data_groups.csv", parse_dates=["Date"])
 
 # Groupby() function of dataframe groups dataframe by a specific column.
 # Also called as SPLIT-APPLY-COMBINE process.
